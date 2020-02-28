@@ -18,7 +18,7 @@ const phoneBook = {};
 // Добавление имен и номеров
 async function add(){
     console.log('Введите имя');
-    const name = String(await getLine());
+    const name = await getLine();
     console.log('Введите номер');
     const phone = Number(await getLine());
 
@@ -33,7 +33,7 @@ async function print (){
  // Удаление номеров
  async function deletePhone(){
      console.log('Введите имя для удаления');
-     const name =  String(await getLine());
+     const name =  await getLine();
 
     delete phoneBook[name];
  }
@@ -41,13 +41,17 @@ async function print (){
  // Поиск номера по имени
  async function searchPhone(){
     console.log('Какое имя нужно найти?');
-    const name = String(await getLine());
+    const name = await getLine();
 
-    let result = (name in phoneBook) ? console.log(`Номер телефона у ${name}: ${phoneBook[name]}`) : console.log("Такого имени нет в базе");
+    if (name in phoneBook) {
+        console.log(`Номер телефона у ${name}: ${phoneBook[name]}`);
+    } else {
+        console.log("Такого имени нет в базе");
+    }
  }
 
 const main = async () => {
-    console.log('Введите команду add/ добавить контакт, print/ показать контакты, delete/ удалить контакт, search/ поиск контакта. Для выхода используйте команду - exit');
+    console.log(`Введите команду add- добавить контакт, \n print/ показать контакты, delete/ удалить контакт, \n search/ поиск контакта. Для выхода используйте команду - exit`);
     const command = await getLine();
     if (command === 'exit') {
         process.exit(0);
