@@ -27,7 +27,12 @@ async function add() {
 
 // Печать контактов
 async function print() {
-  console.log(phoneBook);
+
+  //Печать элемента объектов с помощью for in
+  for (let key in phoneBook) {
+    console.log(`Контакт с именем ${key} и номером ${phoneBook[key]}`);
+  }
+  
 }
 
 // Удаление номеров
@@ -56,7 +61,7 @@ async function searchPhone() {
 }
 
 const main = async () => {
-  console.log(`Введите команду add- добавить контакт, \n print/ показать контакты, delete/ удалить контакт, \n search/ поиск контакта. Для выхода используйте команду - exit`);
+  console.log(`Введите команду add- добавить контакт, \n print- показать , delete- удалить контакт, \n search- поиск. Для выхода используйте команду - exit`);
   const command = await getLine();
   if (command === 'exit') {
     process.exit(0);
