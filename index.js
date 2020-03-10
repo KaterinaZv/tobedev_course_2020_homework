@@ -6,6 +6,7 @@ const ConsoleReader = require('./ConsoleReader');
 const Contact = require('./Contact');
 const message = require(`./MessagePrinter`);
 
+
 const main = async () => {
   message.printTooltip (`Введите команду add- добавить контакт, \nprint/ показать контакты, delete/ удалить контакт, \nsearch/ поиск контакта. Выход- exit`);
   const command = await ConsoleReader.getLine();
