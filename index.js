@@ -1,27 +1,75 @@
 'use strict'
 
-// Подключения к модулям
 const readline = require('readline');
-const ConsoleReader = require('./ConsoleReader');
-const Contact = require('./Contact');
-const message = require(`./MessagePrinter`);
 
+const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+
+const getLine = (function () {
+  const getLineGen = (async function* () {
+    for await (const line of rl) {
+      yield line;
+    }
+  })();
+  return async () => ((await getLineGen.next()).value);
+})();
+
+const phoneBook = {};
+
+// Добавление имен и номеров
+async function add() {
+  console.log('Введите имя');
+  const name = await getLine();
+  console.log('Введите номер');
+  const phone = Number(await getLine());
+
+  phoneBook[name] = phone;
+}
+
+// Печать контактов
+async function print() {
+  console.log(phoneBook);
+}
+
+// Удаление номеров
+async function deletePhone() {
+  console.log('Введите имя для удаления');
+  const name = await getLine();
+
+  if (name in phoneBook) {
+    delete phoneBook[name];
+    console.log("Контакт удален");
+  } else {
+    console.log("Такого имени нет в базе");
+  }
+}
+
+// Поиск номера по имени
+async function searchPhone() {
+  console.log('Какое имя нужно найти?');
+  const name = await getLine();
+
+  if (name in phoneBook) {
+    console.log(`Номер телефона у ${name}: ${phoneBook[name]}`);
+  } else {
+    console.log("Такого имени нет в базе");
+  }
+}
 
 const main = async () => {
-  message.printTooltip (`Введите команду add- добавить контакт, \nprint/ показать контакты, delete/ удалить контакт, \nsearch/ поиск контакта. Выход- exit`);
-  const command = await ConsoleReader.getLine();
+  console.log(`Введите команду add- добавить контакт, \n print/ показать контакты, delete/ удалить контакт, \n search/ поиск контакта. Для выхода используйте команду - exit`);
+  const command = await getLine();
   if (command === 'exit') {
     process.exit(0);
   } else if (command === 'add') {
-    await Contact.add();
+    await add();
   } else if (command === 'print') {
-    await Contact.print();
+    await print();
   } else if (command === 'delete') {
-    await Contact.deletePhone();
+    await deletePhone();
   } else if (command === 'search') {
-    await Contact.searchPhone();
+    await searchPhone();
   } else {
-    message.printError('Неизвестная команда');
+    console.log('Неизвестная команда');
   }
 
   main();

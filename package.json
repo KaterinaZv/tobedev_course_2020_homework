@@ -1,0 +1,19 @@
+{
+  "name": "tobedev_course_2020_homework",
+  "version": "1.0.0",
+  "description": "Домашнее задание №3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KaterinaZv/tobedev_course_2020_homework.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KaterinaZv/tobedev_course_2020_homework/issues"
+  },
+  "homepage": "https://github.com/KaterinaZv/tobedev_course_2020_homework#readme"
+}
